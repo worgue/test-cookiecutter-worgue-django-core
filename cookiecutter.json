@@ -1,0 +1,10 @@
+{
+  "project_name": "Django Web Project Name",
+  "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "author_name": "Masaaki Yasui",
+  "email": "yasu@worgue.com",
+  "description": "Django website template.",
+  "python_version": "3.10.3",
+  "python_virtualenv": "{{ cookiecutter.project_slug }}-{{ cookiecutter.python_version }}",
+  "base_domain": "worgue.jp"
+}
