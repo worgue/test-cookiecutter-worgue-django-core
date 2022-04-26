@@ -4,7 +4,6 @@
 *.mo
 .DS_Store
 .envrc
-.vscode/
 
 /static_root/
 /media_root/

@@ -14,8 +14,8 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get install -y curl gettext postgresql-client
 
 ADD . /{{cookiecutter.project_slug}}
-RUN pip install --upgrade pip && pip install poetry
-RUN poetry install --no-root
+RUN pip install --upgrade pip && pip install pipenv
+RUN pipenv install --system --dev
 
 RUN python manage.py compilemessages -l en -l ja
 RUN python manage.py collectstatic --noinput
