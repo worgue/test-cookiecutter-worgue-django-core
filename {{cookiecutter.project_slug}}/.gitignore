@@ -4,11 +4,9 @@
 *.mo
 .DS_Store
 .envrc
-.vscode/
 
 /static_root/
 /media_root/
 /test_media_root/
 
 /local_modules/
-*/settings/98-local.conf
