@@ -16,8 +16,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "dist/static"),]
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "templates/static"),]
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 
 # Application definition
 
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    "django_extensions",
     "django_celery_results",
     "django_filters",
     "import_export",
@@ -107,21 +108,10 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-JWT_AUTH = {
-    "JWT_VERIFY": True,
-    "JWT_VERIFY_EXPIRATION": True,
-    "JWT_LEEWAY": 0,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=1),
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
-    "JWT_AUTH_HEADER_PREFIX": "bearer",
-}
-
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "SEARCH_PARAM": "q",

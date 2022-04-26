@@ -25,10 +25,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-INSTALLED_APPS += [
-    "django_extensions",
-]
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -37,7 +33,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": os.environ.get("DATABASE_HOST", "127.0.0.1"),
         "NAME": "{{cookiecutter.project_slug}}_db",
-        "USER": "root",
+        "USER": "postgres",
         "PASSWORD": "adminadmin",
     }
 }
@@ -55,9 +51,9 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
 
 
 MEDIA_BUCKET_NAME = "media-local"  # Placeholder

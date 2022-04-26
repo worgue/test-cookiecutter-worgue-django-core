@@ -11,14 +11,17 @@ ENTRYPOINT ["/bin/bash", "-c"]
 WORKDIR /{{cookiecutter.project_slug}}
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install -y curl gettext postgresql-client
+RUN apt-get install -y curl gettext postgresql-client dos2unix
 
 ADD . /{{cookiecutter.project_slug}}
 RUN pip install --upgrade pip && pip install pipenv
+RUN pipenv lock --dev
 RUN pipenv install --system --dev
-
-RUN python manage.py compilemessages -l en -l ja
-RUN python manage.py collectstatic --noinput
 
 # コンテナ軽量化
 RUN rm -rf /var/lib/apt/lists/*
+
+# CRLF対策
+COPY docker/django/entrypoint.sh /entrypoint.sh
+RUN dos2unix /entrypoint.sh
+RUN chmod 777 /entrypoint.sh

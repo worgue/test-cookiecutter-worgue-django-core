@@ -2,16 +2,14 @@ version: '3'
 services:
   app:
     build:
-      context: ../docker/django
+      context: ../
+      dockerfile: docker/django/Dockerfile
     depends_on:
       - db
     ports:
       - "8000:8000"
       - "8888:8888"
-    command:
-      - |
-          python manage.py migrate
-          python manage.py runserver 0.0.0.0:8000
+    entrypoint: /entrypoint.sh
     volumes:
       - ..:/{{cookiecutter.project_slug}}
     environment:
@@ -21,21 +19,24 @@ services:
   db:
     build: ../docker/psql
     environment:
-      POSTGRES_PASSWORD: veLaVEAJttwSxcLnEPCP9YhgK
-      POSTGRES_USER: {{cookiecutter.project_slug}}
-      POSTGRES_DB: {{cookiecutter.project_slug}}
+      POSTGRES_PASSWORD: adminadmin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: {{cookiecutter.project_slug}}_db
     ports:
       - "5433:5432"
+    volumes:
+      - {{cookiecutter.project_slug}}.db.volume:/var/lib/postgresql/data
 
   nginx:
     image: nginx
     build:
-      context: ../docker/nginx
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
     tty: true
     ports:
       - "80:80"
     volumes:
-      - ../docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - app
 
